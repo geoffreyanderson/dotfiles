@@ -1,3 +1,8 @@
+-- Author: Geoffrey Anderson
+-- This is the base config for the awesome window manager that I've
+-- thrown some of my own tweaks into to mix in with my workflow :)
+-- On Ubuntu this file should live at: $HOME/.config/awesome/rc.lua
+
 -- Standard awesome library
 require("awful")
 require("awful.autofocus")
@@ -33,13 +38,13 @@ layouts =
 {
     awful.layout.suit.floating,
     awful.layout.suit.tile,
-    awful.layout.suit.tile.left,
+--    awful.layout.suit.tile.left,
     awful.layout.suit.tile.bottom,
-    awful.layout.suit.tile.top,
+--    awful.layout.suit.tile.top,
     awful.layout.suit.fair,
     awful.layout.suit.fair.horizontal,
-    awful.layout.suit.spiral,
-    awful.layout.suit.spiral.dwindle,
+--    awful.layout.suit.spiral,
+--    awful.layout.suit.spiral.dwindle,
     awful.layout.suit.max,
     awful.layout.suit.max.fullscreen,
     awful.layout.suit.magnifier
@@ -89,17 +94,19 @@ mytextclock = awful.widget.textclock({ align = "right" })
 -- batwidget:set_gradient_colors({ "#AECF96", "#88A175", "#FF5656" })
 -- vicious.register(batwidget, vicious.widgets.bat, "$2", 61, "BAT0")
 
+-- {{{ Widgets to display usage of different resources
 -- Initialize Battery widget
 batwidget = widget({ type = "textbox" })
 vicious.register(batwidget, vicious.widgets.bat, " [BAT: $2] ", 61, "BAT0")
 
 -- Initialize Memory widget
 memwidget = widget({ type = "textbox" })
-vicious.register(memwidget, vicious.widgets.mem, " [MEM: $1%] ", 13)
+vicious.register(memwidget, vicious.widgets.mem, " [MEM: $1] ", 13)
 
 -- Initialize CPU widget
 cpuwidget = widget({ type = "textbox" })
-vicious.register(cpuwidget, vicious.widgets.cpu, " [CPU: $1%] ")
+vicious.register(cpuwidget, vicious.widgets.cpu, " [CPU: $1] ")
+-- }}}
 
 -- Create a systray
 mysystray = widget({ type = "systray" })
@@ -146,6 +153,7 @@ mytasklist.buttons = awful.util.table.join(
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
     mypromptbox[s] = awful.widget.prompt({ layout = awful.widget.layout.horizontal.leftright })
+
     -- Create an imagebox widget which will contains an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     mylayoutbox[s] = awful.widget.layoutbox(s)
@@ -154,6 +162,7 @@ for s = 1, screen.count() do
                            awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
                            awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)))
+
     -- Create a taglist widget
     mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.label.all, mytaglist.buttons)
 
@@ -164,7 +173,9 @@ for s = 1, screen.count() do
 
     -- Create the wibox
     mywibox[s] = awful.wibox({ position = "top", screen = s })
+
     -- Add widgets to the wibox - order matters
+    -- In this case, the order will be: menu, list of tags, window list, tray, CPU widget, MEM widget, BAT widget, clock, Layout widget
     mywibox[s].widgets = {
         {
             mylauncher,
@@ -181,6 +192,20 @@ for s = 1, screen.count() do
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
+
+    -- Set up any floating windows to be ALWAYS on top (this is like my old XMonad config :))
+    screen[s]:add_signal("arrange", function ()
+        for _, c in pairs(awful.client.visible(s)) do
+            if awful.client.floating.get(c) or awful.layout.getname(awful.layout.get(s)) == "floating" then
+                if not c.fullscreen then
+                    c.above       =  true
+                end
+            else
+                c.above = false
+            end
+        end
+    end)
+
 end
 -- }}}
 
@@ -229,6 +254,8 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
+
+    -- This is like alt+tabbing between 2 tags
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
     awful.key({ modkey,           }, "j",
@@ -241,13 +268,15 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
+
+    -- This opens the menu defined in .awesomerc
     awful.key({ modkey,           }, "w", function () mymainmenu:show({keygrabber=true}) end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
     awful.key({ modkey, "Shift"   }, "k", function () awful.client.swap.byidx( -1)    end),
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
+    -- awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end),
+    -- awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto),
     awful.key({ modkey,           }, "Tab",
         function ()
@@ -259,6 +288,9 @@ globalkeys = awful.util.table.join(
 
     -- Standard program
     awful.key({ modkey,           }, "Return", function () awful.util.spawn(terminal) end),
+    -- I'm used to doing "mod+Shift+Enter" to open a terminal from my XMonad days.. :P
+    awful.key({ modkey, "Shift"   }, "Return", function () awful.util.spawn(terminal) end),
+
     awful.key({ modkey, "Control" }, "r", awesome.restart),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
@@ -271,7 +303,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "space", function () awful.layout.inc(layouts,  1) end),
     awful.key({ modkey, "Shift"   }, "space", function () awful.layout.inc(layouts, -1) end),
 
-    -- Prompt
+    -- Prompt to start programs (similar to dmenu)
     awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
 
     awful.key({ modkey }, "x",
@@ -338,6 +370,7 @@ for i = 1, keynumber do
                   end))
 end
 
+-- I believe this maps the mouse keys for manipulating windows
 clientbuttons = awful.util.table.join(
     awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
     awful.button({ modkey }, 1, awful.mouse.client.move),
@@ -347,28 +380,19 @@ clientbuttons = awful.util.table.join(
 root.keys(globalkeys)
 -- }}}
 
-floatapps = 
-{
-    ["MPlayer"] = true,
-    ["Vlc"] = true,
-    ["gimp"] = true,
-    ["gcalculator"] = true
-}
-apptags =
-{
-    ["Gimp"] = { screen = 1, tag = 4},
-    ["Chrome"] = { screen = 1, tag = 1},
-    ["Google-chrome"] = { screen = 1, tag = 1},
-    ["Chromium Browser"] = { screen = 1, tag = 1},
-    ["Firefox"] = { screen = 1, tag = 1},
-    ["banshee"] = { screen = 1, tag = 3},
-    ["Rhythmbox"] = { screen = 1, tag = 3},
-    ["Empathy"] = { screen = 1, tag = 2},
-    ["Pidgin"] = { screen = 1, tag = 2},
-    ["Gwibber"] = { screen = 1, tag = 2}
-}
-
 -- {{{ Rules
+-- Define properties for applications.  When any of the applications listed
+-- below are opened, they'll be assigned to a specific screen and tag number
+-- (e.g. tag[1][4] is screen 1, tag 4).  Additionally, any applications that
+-- should always float by default, have the "floating = true" property.
+-- My paradigm is:
+--  tag1: web browsers
+--  tag2: chat clients/social media stuff (e.g. twitter)
+--  tag3: music applications
+--  tag4: art applications
+--  tag5: games
+-- And floats are generally video, art, and calculator applications.
+
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -379,6 +403,7 @@ awful.rules.rules = {
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" }, properties = { floating = true } },
     { rule = { class = "VLC" }, properties = { floating = true } },
+    { rule = { class = "gcalculator" }, properties = { floating = true } },
     { rule = { class = "gimp" }, properties = { floating = true, tag = tags[1][4] } },
     { rule = { class = "Chrome" }, properties = { tag = tags[1][1] } },
     { rule = { class = "Firefox" }, properties = { tag = tags[1][1] } },
@@ -389,9 +414,6 @@ awful.rules.rules = {
     { rule = { class = "Gwibber" }, properties = { tag = tags[1][2] } },
     { rule = { class = "Empathy" }, properties = { tag = tags[1][2] } },
     { rule = { class = "Pidgin" }, properties = { tag = tags[1][2] } },
-    -- Set Firefox to always map on tags number 2 of screen 1.
-    -- { rule = { class = "Firefox" },
-    --   properties = { tag = tags[1][2] } },
 }
 -- }}}
 
@@ -426,33 +448,6 @@ client.add_signal("focus", function(c) c.border_color = beautiful.border_focus e
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
 
--- -- {{{ Volume level
--- volicon = widget({ type = "imagebox" })
--- volicon.image = image(beautiful.widget_vol)
--- -- initialize widgets
--- volbar = awful.widget.progressbar()
--- volwidget = widget({ type = "textbox" })
--- -- Progressbar properties
--- volbar:set_vertical(true):set_ticks(true)
--- volbar:set_height(12):set_width(8):set_ticks_size(2)
--- volbar:set_background_color(beautiful.fg_off_widget)
--- volbar:set_gradient_colors({ beautiful.fg_widget, beautiful.fg_center_widget, beautiful.fg_end_widget})
--- -- Enable caching
--- vicious.cache(vicious.widgets.volume)
--- -- Register widgets
--- vicious.register(volbar, vicious.widgets.volume, "$1", 2, "PCM")
--- vicious.register(volwidget, vicious.widgets.volume, " $1%", 2, "PCM")
--- -- Register buttons
--- volbar.widget:buttons(awful.util.table.join(
---     awful.button({ }, 1, function () exec("gnome-sound-applet") end),
---     awful.button({ }, 4, function () exec("amixer -q set PCM 2dB+", false) end),
---     awful.button({ }, 5, function () exec("amixer -q set PCM 2dB-", false) end)
--- ))
--- -- Register assigned buttons
--- volwidget:buttons(volbar.widget:buttons())
--- -- }}}
-
-
 -- Kick off system tray apps
 do
     extraprogs = {
@@ -463,26 +458,6 @@ do
     }
 
     for _,i in pairs(extraprogs) do
---         os.execute(i)
            awful.util.spawn_with_shell("pgrep -u $USER -x " .. i .. " || (" .. i .. ")")
     end
 end
-
--- {{{ Arrange signal handler
-for s = 1, screen.count() do 
-    screen[s]:add_signal("arrange", function ()
-        local clients = awful.client.visible(s)
-        local layout = awful.layout.getname(awful.layout.get(s))
-
-        for _, c in pairs(clients) do -- Floaters are always on top
-            if awful.client.floating.get(c) or layout == "floating" then
-                if not c.fullscreen then
-                    c.above       =  true
-                end
-            else
-                c.above = false
-            end
-        end
-    end)
-end
--- }}}

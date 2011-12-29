@@ -454,7 +454,8 @@ do
         "nm-applet",
         "gnome-sound-applet", 
         "gnome-power-manager", 
-        "gnome-keyring-daemon"
+        "gnome-keyring-daemon",
+        "xscreensaver",
     }
 
     for _,i in pairs(extraprogs) do

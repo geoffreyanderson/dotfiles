@@ -1,0 +1,43 @@
+table Config
+  FontName: arial
+  FontSize: 8
+  FontColor: #ffffff
+  ToolTip.FontSize: 9
+  ToolTip.FontName: arial
+  ToolTip.ForeColor: #0000FF
+  ToolTip.BackColor: #FFFFFF
+  ToolTip.CaptionOnHover: true
+  ToolTip.CaptionPlacement: left
+  Locked: false
+  Transparency: 100
+  Shadow: true
+  ShadowColor: #000000
+  ShadowX: 1
+  ShadowY: 2
+  Bold: false
+  ClickDelay: 300
+  IconSnap: true
+  SnapWidth: 55
+  SnapHeight: 100
+  SnapOrigin: TopLeft
+  SnapShadow: true
+  SnapShadowTrans: 200
+  CaptionOnHover: false
+  CaptionPlacement: bottom
+  FillStyle: FillHLine
+  Background.File: /home/geoff/.idesktop/images/nyancat.png
+  Background.Delay: 1
+  Background.Mode: Scale
+  Background.Color: #000000
+  CursorOver: arrow
+end
+
+table Actions
+  Lock: control right doubleClk
+  Reload: middle doubleClk
+  Drag: left hold
+  EndDrag: left singleClk
+  Execute[0]: left doubleClk
+  Execute[1]: right doubleClk
+end
+

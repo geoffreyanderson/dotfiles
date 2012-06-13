@@ -18,8 +18,15 @@ require("vicious")
 require("debian.menu")
 
 -- {{{ Variable definitions
+local home = os.getenv("HOME")
+
 -- Themes define colours, icons, and wallpapers
 beautiful.init("/usr/share/awesome/themes/default/theme.lua")
+-- beautiful.init("/usr/share/awesome/themes/zenburn/theme.lua")
+-- beautiful.init(home .. "/.config/awesome/zenburn.lua")
+-- beautiful.init("/home/geoff/.config/awesome/zenburn.lua")
+-- beautiful.init(home .. "/.config/awesome/subtlehacker.lua")
+
 
 -- This is used later as the default terminal and editor to run.
 terminal = "x-terminal-emulator"

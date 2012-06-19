@@ -233,4 +233,10 @@ if [ -n "$DISPLAY" ]; then
     BROWSER=firefox
 fi
 
+
+if [[ -f ~/.shell.aliases ]]
+then
+	. ~/.shell.aliases
+fi
+
 ## END OF FILE #################################################################

@@ -1,0 +1,8 @@
+# Poor man's directory shortcuts
+alias ..='cd ..'
+alias ...='cd ../..'
+
+alias lla='ls -lah'
+
+# Quick alias to see file counts, per folder, in the current directory
+alias sd='sudo du -ch --max-depth=1'

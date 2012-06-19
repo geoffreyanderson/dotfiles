@@ -207,11 +207,11 @@ root.buttons(awful.util.table.join(
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
     -- temporarily map mod+up/down to control volume
-    awful.key({ modkey, }, "Down", function () awful.util.spawn("amixer set Master playback 3-") end),
-    awful.key({ modkey, }, "Up", function () awful.util.spawn("amixer set Master playback 3+") end),
+    awful.key({ modkey, }, "Down", function () awful.util.spawn("amixer set Master playback 5%-") end),
+    awful.key({ modkey, }, "Up", function () awful.util.spawn("amixer set Master playback 5%+") end),
     -- MMKeys
-    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("amixer set Master playback 3-") end),
-    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("amixer set Master playback 3-") end),
+    awful.key({ }, "XF86AudioLowerVolume", function () awful.util.spawn("amixer set Master playback 5%-") end),
+    awful.key({ }, "XF86AudioRaiseVolume", function () awful.util.spawn("amixer set Master playback 5%+") end),
     awful.key({ }, "XF86AudioMute", function () awful.util.spawn("amixer set Master playback 0") end),
     awful.key({ }, "XF86AudioPlay", function () awful.util.spawn("banshee --toggle-playing") end),
     awful.key({ }, "XF86AudioStop", function () awful.util.spawn("banshee --stop") end),
@@ -453,6 +453,8 @@ do
     }
 
     for _,i in pairs(extraprogs) do
-           awful.util.spawn_with_shell("pgrep -u $USER -x " .. i .. " || (" .. i .. ")")
+           -- pgrep doesn't work because of terminal width or something (e.g. pgrep fails to find 'bluetooth-applet' but find 'bluetooth-apple')
+           -- awful.util.spawn_with_shell("pgrep -u $USER -x " .. i .. " || (" .. i .. ")")
+           awful.util.spawn_with_shell("ps -F -u $USER | grep -v grep | grep " .. i .. " || (" .. i .. ")")
     end
 end

@@ -466,6 +466,8 @@ do
     }
 
     for _,i in pairs(extraprogs) do
-           awful.util.spawn_with_shell("pgrep -u $USER -x " .. i .. " || (" .. i .. ")")
+           -- pgrep doesn't work because of terminal width or something (e.g. pgrep fails to find 'bluetooth-applet' but find 'bluetooth-apple')
+           -- awful.util.spawn_with_shell("pgrep -u $USER -x " .. i .. " || (" .. i .. ")")
+           awful.util.spawn_with_shell("ps -F -u $USER | grep -v grep | grep " .. i .. " || (" .. i .. ")")
     end
 end

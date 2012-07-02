@@ -218,6 +218,31 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "XF86AudioPrev", function () awful.util.spawn("banshee --previous") end),
     awful.key({ }, "XF86AudioNext", function () awful.util.spawn("banshee --next") end),
 
+    -- Poor man's sleep button
+    awful.key({ }, "XF86Sleep", function () awful.util.spawn("sudo pm-suspend") end),
+
+    -- The following XF86 button bindings depend on jupiter and are for eeePC (1016P) ONLY
+    -- Poor man's wifi toggle (F2)
+    awful.key({ }, "XF86WLAN", function () awful.util.spawn("sudo /usr/lib/jupiter/scripts/wifi") end),
+    -- Poor man's touchpad toggle (F3)
+    awful.key({ }, "XF86TouchpadToggle", function () awful.util.spawn("sudo /usr/lib/jupiter/scripts/touchpad") end),
+    -- Poor man's fullscreen -- TODO: add full screen call via awful here (F4)
+    -- awful.key({ }, "XF86Launch5", function () awful.util.spawn("") end),
+ 
+    -- For brightness on eeePC, *could* do 'sudo setpci -s 00:02.0 f4.b=XX' where XX is hex.
+    -- Poor man's brightnessdown toggle (F5)
+    -- awful.key({ }, "XF86BrightnessDown", function () awful.util.spawn("") end),
+    -- Poor man's brightnessup toggle (F6)
+    -- awful.key({ }, "XF86BrightnessUp", function () awful.util.spawn("") end),
+    -- Poor man's screen off (F7) -- what's the best way to turn display on/off on eeePC..
+    -- awful.key({ }, "CODE_FOR_F7 (keycode 252)", function () awful.util.spawn("") end),
+
+    -- Poor man's display toggle (F8)
+    awful.key({ }, "XF86Display", function () awful.util.spawn("sudo /usr/lib/jupiter/scripts/vga-out") end),
+    -- Poor man's system monitor (F9)
+    awful.key({ }, "XF86Launch1", function () awful.util.spawn("gnome-system-monitor") end),
+    -- TODO: figure out why F10/F11/F12 can't be picked up and used for mute/voldown/volup.
+
     awful.key({ modkey,           }, "i",      function()
         local c = client.focus
         if not c then
@@ -402,6 +427,7 @@ awful.rules.rules = {
     { rule = { class = "banshee" }, properties = { floating = false, tag = tags[1][3] } },
     { rule = { class = "Rhythmbox" }, properties = { floating = false, tag = tags[1][3] } },
     { rule = { class = "Gwibber" }, properties = { foating = false, tag = tags[1][2] } },
+    { rule = { class = "Turpial" }, properties = { foating = false, tag = tags[1][2] } },
     { rule = { class = "Empathy" }, properties = { floating = false, tag = tags[1][2] } },
     { rule = { class = "Pidgin" }, properties = { floating = false, tag = tags[1][2] } },
 }
@@ -445,7 +471,7 @@ do
         "bluetooth-applet",
         "gnome-sound-applet", 
         "/usr/libexec/gnome-fallback-mount-helper",
-        "gnome-power-manager", 
+        "xfce4-power-manager", 
         "gnome-keyring-daemon",
         "xscreensaver",
         "feh --bg-max /home/geoff/Pictures/stern_face.jpg",

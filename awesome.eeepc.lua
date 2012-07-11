@@ -55,7 +55,7 @@ layouts =
 tags = {}
 for s = 1, screen.count() do
     -- Each screen has its own tag table.
-    tags[s] = awful.tag({ "1:web", "2:social", "3:music", "4:art", "5:game", "6:remote", 7, 8, 9 }, s, layouts[2])
+    tags[s] = awful.tag({ "1:web", "2:social", "3:music", "4:IM", "5:game", "6:remote", 7, 8, 9 }, s, layouts[2])
 end
 -- }}}
 
@@ -419,7 +419,7 @@ awful.rules.rules = {
     { rule = { class = "MPlayer" }, properties = { floating = true } },
     { rule = { class = "VLC" }, properties = { floating = true } },
     { rule = { class = "gcalculator" }, properties = { floating = true } },
-    { rule = { class = "gimp" }, properties = { floating = true, tag = tags[1][4] } },
+    { rule = { class = "gimp" }, properties = { floating = true, tag = tags[1][9] } },
     { rule = { class = "Chrome" }, properties = { floating = false, tag = tags[1][1] } },
     { rule = { class = "Firefox" }, properties = { floating = false, tag = tags[1][1] } },
     { rule = { class = "Chromium Browser" }, properties = { floating = false, tag = tags[1][1] } },
@@ -428,8 +428,8 @@ awful.rules.rules = {
     { rule = { class = "Rhythmbox" }, properties = { floating = false, tag = tags[1][3] } },
     { rule = { class = "Gwibber" }, properties = { foating = false, tag = tags[1][2] } },
     { rule = { class = "Turpial" }, properties = { foating = false, tag = tags[1][2] } },
-    { rule = { class = "Empathy" }, properties = { floating = false, tag = tags[1][2] } },
-    { rule = { class = "Pidgin" }, properties = { floating = false, tag = tags[1][2] } },
+    { rule = { class = "Empathy" }, properties = { floating = false, tag = tags[1][4] } },
+    { rule = { class = "Pidgin" }, properties = { floating = false, tag = tags[1][4] } },
 }
 -- }}}
 

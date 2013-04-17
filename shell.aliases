@@ -6,3 +6,5 @@ alias lla='ls -lah'
 
 # Quick alias to see file counts, per folder, in the current directory
 alias sd='sudo du -ch --max-depth=1'
+
+alias mutt='TERM=screen-256color mutt'

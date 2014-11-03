@@ -23,8 +23,14 @@ URxvt*scrollTtyKeypress: true
 URxvt*lineSpace: 1
 
 ! Define the perl extensions to be used
-URxvt.perl-ext-common: default,matcher,font-size
+URxvt.perl-ext-common: default,matcher,clipboard,font-size
 URxvt.perl-ext: default,url-select
+
+! Setup clipboard copying
+URxvt.keysym.M-c:         perl:clipboard:copy
+URxvt.keysym.M-v:         perl:clipboard:paste
+URxvt.keysym.M-C-v:       perl:clipboard:paste_escaped
+URxvt.clipboard.autocopy: true
 
 ! URL matching and opening with default app
 URxvt.url-launcher: /usr/bin/firefox

@@ -268,6 +268,14 @@ globalkeys = awful.util.table.join(
     awful.key({ }, "XF86AudioPrev", function () awful.util.spawn("banshee --previous") end),
     awful.key({ }, "XF86AudioNext", function () awful.util.spawn("banshee --next") end),
 
+    awful.key({ modkey, "Control" }, "Up", function () awful.util.spawn(home .. "/sandbox/pianobar-scripts/pianobar-status") end),
+    awful.key({ modkey, "Control" }, "Down", function () awful.util.spawn(home .. "/sandbox/pianobar-scripts/pianobar-toggle") end),
+    awful.key({ modkey, "Control" }, "Left", function () awful.util.spawn(home .. "/sandbox/pianobar-scripts/pianobar-stop") end),
+    awful.key({ modkey, "Control" }, "Right", function () awful.util.spawn(home .. "/sandbox/pianobar-scripts/pianobar-next") end),
+    awful.key({ modkey, "Control" }, "=", function () awful.util.spawn(home .. "/sandbox/pianobar-scripts/pianobar-love") end),
+    awful.key({ modkey, "Control" }, "-", function () awful.util.spawn(home .. "/sandbox/pianobar-scripts/pianobar-ban") end),
+
+
     -- Poor man's sleep button
     awful.key({ }, "XF86Sleep", function () awful.util.spawn("sudo pm-suspend") end),
 
@@ -356,8 +364,8 @@ globalkeys = awful.util.table.join(
     -- I'm used to doing "mod+Shift+Enter" to open a terminal from my XMonad days.. :P
     awful.key({ modkey, "Shift"   }, "Return", function () awful.util.spawn(terminal) end),
 
-    awful.key({ modkey, "Control" }, "r", awesome.restart),
-    awful.key({ modkey, "Shift"   }, "q", awesome.quit),
+	awful.key({ modkey, "Control" }, "r", awesome.restart),
+	awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
     awful.key({ modkey,           }, "l",     function () awful.tag.incmwfact( 0.05)    end),
     awful.key({ modkey,           }, "h",     function () awful.tag.incmwfact(-0.05)    end),

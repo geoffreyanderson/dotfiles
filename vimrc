@@ -9,6 +9,33 @@
 "  for MS-DOS and Win32:  $VIM\_vimrc
 "	    for OpenVMS:  sys$login:.vimrc
 
+" BEGIN VUNDLE CONFIG
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+call pathogen#infect()
+syntax enable
+filetype plugin indent on
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+" call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+
+" Install coffeescript syntax
+Bundle 'kchmck/vim-coffee-script'
+syntax enable
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" END VUNDLE CONFIG
+
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
   finish
@@ -107,7 +134,7 @@ endif " has("autocmd")
 set tabstop=4                   " Leave default for printing etc
 set softtabstop=4               " But use spaces between real tabs
 set shiftwidth=4
-set noexpandtab                 " Use 'real' tabs if possible
+"set noexpandtab                 " Use 'real' tabs if possible
 set number			" Turn on line numbers
 nnoremap <C-N> :next<CR>
 nnoremap <C-P> :prev<CR>
@@ -132,3 +159,37 @@ fu Select_c_style()
 	set expandtab
     en
 endf
+
+" --begin puppet .vimrc stuff---
+" turn off auto adding comments on next line
+" " so you can cut and paste reliably
+" " http://vimdoc.sourceforge.net/htmldoc/change.html#fo-table
+set fo=tcq
+set nocompatible
+set modeline
+
+" set default comment color to cyan instead of dark blue
+" which is not very legible on a black background
+highlight comment ctermfg=cyan
+
+set tabstop=2
+set expandtab
+set softtabstop=2
+
+highlight LiteralTabs ctermbg=darkgreen guibg=darkgreen
+match LiteralTabs /\s\  /
+highlight ExtraWhitespace ctermbg=darkgreen guibg=darkgreen
+match ExtraWhitespace /\s\+$/
+
+" Show me a ruler
+set ruler
+
+" Set up puppet manifest and spec options
+au BufRead,BufNewFile *.pp
+ \ set filetype=puppet
+au BufRead,BufNewFile *_spec.rb
+ \ nmap <F8> :!rspec --color %<CR>
+
+" Enable indentation matching for =>'s
+filetype plugin indent on
+"---end puppet .vimrc stuff---

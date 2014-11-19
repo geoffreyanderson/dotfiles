@@ -1,0 +1,28 @@
+[user]
+	name = Geoffrey Anderson
+	email = geoff@geoffreyanderson.net
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+[color]
+	branch = auto
+	diff = auto
+	status = auto
+[alias]
+	wtf = blame
+	history = log --graph --full-history --all --color --pretty=format:"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s"
+	yolo = reset --hard HEAD

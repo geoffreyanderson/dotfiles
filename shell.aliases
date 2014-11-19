@@ -1,7 +1,12 @@
+# Extra shell aliases to be sourced by BASH or ZSH
+# Geoffrey Anderson <geoff@geoffreyanderson.net>
+
+export EDITOR=vim
+
 # Poor man's directory shortcuts
 alias ..='cd ..'
 alias ...='cd ../..'
-
+alias ll='ls -l'
 alias lla='ls -lah'
 
 # Quick alias to see file counts, per folder, in the current directory
@@ -13,3 +18,27 @@ alias mutt='TERM=screen-256color mutt'
 
 # Perl local::lib action
 [ $SHLVL -eq 1 ] && eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"
+
+# Shows most used commands, cool script I got this from: http://lifehacker.com/software/how-to/turbocharge-your-terminal-274317.php
+alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -n | tail -n 20 | sort -nr"
+
+# Decode JSON on the fly. Usage: $ json_decode someJsonFilledFile
+alias json_decode='python -c'\''from simplejson.tool import main; main()'\'''
+
+# Convert multi-line output into pipe-delimited single line
+alias oneline='sed -e :0 -e N -e "s/\n/|/" -e b0'
+
+# Override default ttytter params
+alias ttytter='ttytter -readline -ssl -dostream -urlopen "lynx -dump %U | less" -vcheck'
+
+# Setup irssi aliases based on configs in ~/.irssi
+for conf in ~/.irssi/config.*
+do
+	alias "irssi${conf##*.}"="irssi --config=${conf}"
+done
+
+# Functions -------
+# Decode URLs
+urldecode() {
+        python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])" $1
+}

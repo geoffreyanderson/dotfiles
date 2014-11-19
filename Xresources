@@ -1,0 +1,53 @@
+! Color depth and colors. Black BG with white FG
+URxvt*depth: 32
+URxvt*background: [75]#000000
+URxvt*foreground: White
+URxvt*cursorColor: Red
+URxvt*fading: 30
+
+URxvt*iconFile: /usr/share/icons/gnome/32x32/apps/gnome-terminal.png
+URxvt*intensityStyles: false
+
+! Set urgency hint on bell so the WM picks it up
+URxvt*urgentOnBell: true
+
+! Disable that ugly scrollbar >:[
+URxvt*scrollBar: false
+
+! Don't scroll the screen around if I'm looking higher up!
+URxvt*scrollTtyOutput: false
+URxvt*scrollWithBuffer: true
+URxvt*scrollTtyKeypress: true
+
+! Nice tight line spacing
+URxvt*lineSpace: 1
+
+! Define the perl extensions to be used
+URxvt.perl-ext-common: default,matcher,clipboard,font-size
+URxvt.perl-ext: default,url-select
+
+! Setup clipboard copying
+URxvt.keysym.M-c:         perl:clipboard:copy
+URxvt.keysym.M-v:         perl:clipboard:paste
+URxvt.keysym.M-C-v:       perl:clipboard:paste_escaped
+URxvt.clipboard.autocopy: true
+
+! URL matching and opening with default app
+URxvt.url-launcher: /usr/bin/firefox
+URxvt.matcher.button: 1
+
+URxvt.keysym.M-Up: perl:font-size:increase
+URxvt.keysym.M-Down: perl:font-size:decrease
+
+! Make underline text a nice blue for visibility
+URxvt.colorUL: #4682B4
+
+! Setup URL opening via keyboard
+URxvt.keysym.M-u: perl:url-select:select_next
+URxvt.url-select.launcher: /usr/bin/firefox
+URxvt.url-select.underline: true
+
+
+! Specifies the program to be started with a URL argument. Used by the "selection-popup"
+URxvt*url-launcher: firefox
+

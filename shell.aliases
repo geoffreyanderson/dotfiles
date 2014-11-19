@@ -8,3 +8,8 @@ alias lla='ls -lah'
 alias sd='sudo du -ch --max-depth=1'
 
 alias mutt='TERM=screen-256color mutt'
+
+[[ -d /usr/local/mysql/bin ]] && PATH="/usr/local/mysql/bin:$PATH"
+
+# Perl local::lib action
+[ $SHLVL -eq 1 ] && eval "$(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)"

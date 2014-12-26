@@ -51,3 +51,5 @@ URxvt.url-select.underline: true
 ! Specifies the program to be started with a URL argument. Used by the "selection-popup"
 URxvt*url-launcher: firefox
 
+! xterm
+XTerm*bellIsUrgent:  true

@@ -1,0 +1,6 @@
+[Unit]
+Description=Low Battery Alert Script
+
+[Service]
+Type=simple
+ExecStart=/home/geoff/sandbox/dotfiles/scripts/lowbatt.sh

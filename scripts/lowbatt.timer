@@ -1,0 +1,12 @@
+[Unit]
+Description=Runs Low Battery Alert script every 5 minutes
+
+[Timer]
+# Time to wait after booting before we run first time
+OnBootSec=1min
+# Time between running each consecutive time
+OnUnitActiveSec=5m
+Unit=lowbatt.service
+
+[Install]
+WantedBy=multi-user.target

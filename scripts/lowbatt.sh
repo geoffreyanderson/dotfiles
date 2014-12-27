@@ -2,6 +2,11 @@
 # Originally snagged from https://bbs.archlinux.org/viewtopic.php?pid=1271322#p1271322
 # To get full use of this, you'll need libnotify and to setup a crontab entry like:
 #    */5 * * * * /path/to/dotfiles/scripts/lowbatt.sh
+# Or symlink the systemd .service and .timer files and set those up:
+#    $ sudo ln -s /path/to/dotfiles/scripts/lowbatt.service /etc/systemd/system/lowbatt.service
+#    $ sudo ln -s /path/to/dotfiles/scripts/lowbatt.timer /etc/systemd/system/lowbatt.timer
+#    $ sudo systemctl start lowbatt.timer
+#    $ sudo systemctl enable lowbatt.timer
 
 # low battery in %
 LOW_BATTERY="15"

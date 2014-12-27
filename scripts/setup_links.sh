@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Quick script to bootstrap symlinks for dotfiles
 
 ln -s "${HOME}/sandbox/dotfiles/gitconfig" "${HOME}/.gitconfig"
 ln -s "${HOME}/sandbox/dotfiles/screenrc" "${HOME}/.screenrc"

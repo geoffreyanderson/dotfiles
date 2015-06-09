@@ -30,6 +30,11 @@ Plugin 'gmarik/Vundle.vim'
 Bundle 'kchmck/vim-coffee-script'
 syntax enable
 
+" Setup dependencies for markdown highlighting
+Plugin 'godlygeek/tabular'
+" Setup markdown highlighting
+Plugin 'plasticboy/vim-markdown'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -150,15 +155,15 @@ func! CompileGcc()
     exec "w" "Save the file
     exec "!g++ % -o %<"
 endfunc
-fu Select_c_style()
-    if search('^\t', 'n', 150)
-	set shiftwidth=8
-	set noexpandtab
-    el
-	set shiftwidth=4
-	set expandtab
-    en
-endf
+"fu Select_c_style()
+"    if search('^\t', 'n', 150)
+"	set shiftwidth=8
+"	set noexpandtab
+"    el
+"	set shiftwidth=4
+"	set expandtab
+"    en
+"endf
 
 " --begin puppet .vimrc stuff---
 " turn off auto adding comments on next line

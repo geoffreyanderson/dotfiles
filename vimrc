@@ -17,30 +17,6 @@ call pathogen#infect()
 syntax enable
 filetype plugin indent on
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-" call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" Install coffeescript syntax
-Bundle 'kchmck/vim-coffee-script'
-syntax enable
-
-" Setup dependencies for markdown highlighting
-Plugin 'godlygeek/tabular'
-" Setup markdown highlighting
-Plugin 'plasticboy/vim-markdown'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-" END VUNDLE CONFIG
-
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
   finish

@@ -1,12 +1,24 @@
 #!/usr/bin/env bash
 # Quick script to bootstrap symlinks for dotfiles
 
-ln -s "${HOME}/sandbox/dotfiles/gitconfig" "${HOME}/.gitconfig"
-ln -s "${HOME}/sandbox/dotfiles/screenrc" "${HOME}/.screenrc"
-ln -s "${HOME}/sandbox/dotfiles/shell.aliases" "${HOME}/.shell.aliases"
-ln -s "${HOME}/sandbox/dotfiles/tmux.conf" "${HOME}/.tmux.conf"
-ln -s "${HOME}/sandbox/dotfiles/vimrc" "${HOME}/.vimrc"
-ln -s "${HOME}/sandbox/dotfiles/Xdefaults" "${HOME}/.Xdefaults"
-ln -s "${HOME}/sandbox/dotfiles/Xresources" "${HOME}/.Xresources"
-ln -s "${HOME}/sandbox/dotfiles/zshrc" "${HOME}/.zshrc"
-ln -s "${HOME}/sandbox/dotfiles/zshrc.local" "${HOME}/.zshrc.local"
+CONFS=(gitconfig screenrc shell.aliases tmux.conf vim vimrc Xdefaults Xresources zshrc zshrc.local)
+
+function link_this_kthx() {
+    local sourcething="$1"
+    local destthing="$2"
+
+    if [[ ! -e "${homepath}" ]]
+    then
+        echo "Linking ${sourcething} as ${destthing}"
+        ln -s "${sourcething}" "${destthing}"
+    else
+        echo "${destthing} already exists. Skipping..."
+    fi
+}
+
+for f in "${CONFS[@]}"
+do
+    sourcepath="${HOME}/sandbox/dotfiles/${f}"
+    homepath="${HOME}/.${f}"
+    link_this_kthx "$sourcepath" "$homepath"
+done

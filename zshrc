@@ -861,7 +861,7 @@ done; unset rh
 
 # completion system
 if zrcautoload compinit ; then
-    compinit || print 'Notice: no compinit available :('
+    compinit -u || print 'Notice: no compinit available :('
 else
     print 'Notice: no compinit available :('
     function zstyle { }

@@ -59,9 +59,10 @@ if has("autocmd")
   " indenting.
   filetype plugin indent on
 
+  au BufWritePost * filetype detect
   au BufRead,BufNewFile *.c,*.h call Select_c_style()
   au BufRead,BufNewFile MakeFile* set noexpandtab
-  
+
   " Use the below to highlight group when displaying bad whitespace
   highlight BadWhitespace ctermbg=red guibg=red
 
@@ -169,4 +170,13 @@ au BufRead,BufNewFile *_spec.rb
 
 " Enable indentation matching for =>'s
 filetype plugin indent on
-"---end puppet .vimrc stuff---
+
+" Perform filetype detection on 1st line if not already set
+if did_filetype()   " filetype already set
+    finish          " don't do these checks
+endif
+if getline(1) =~ '^#!.*\<mine\>'
+    setfiletype mine
+elseif getline(1) =~? '\<drawing\>'
+    setfiletype drawing
+endif

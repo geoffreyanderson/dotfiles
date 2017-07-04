@@ -2,6 +2,7 @@
 # Geoffrey Anderson <geoff@geoffreyanderson.net>
 
 export EDITOR=vim
+myshell="${SHELL##*/}"
 
 # Poor man's directory shortcuts
 alias ..='cd ..'
@@ -42,3 +43,13 @@ done
 urldecode() {
         python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1])" $1
 }
+
+# Other completions ------
+# Kubectl
+if [[ -x "$(which kubectl)" ]]
+then
+  if kubectl completion "$myshell" > /dev/null
+  then
+    source <(kubectl completion "$myshell")
+  fi
+fi

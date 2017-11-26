@@ -247,4 +247,10 @@ export LANGUAGE=en_US.UTF-8
 
 export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
+
+# Setup direnv evaluation
+if [[ -x "$(which direnv)" ]]
+then
+    eval "$(direnv hook zsh)"
+fi
 ## END OF FILE #################################################################

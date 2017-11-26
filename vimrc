@@ -180,3 +180,4 @@ if getline(1) =~ '^#!.*\<mine\>'
 elseif getline(1) =~? '\<drawing\>'
     setfiletype drawing
 endif
+filetype plugin indent on    " required

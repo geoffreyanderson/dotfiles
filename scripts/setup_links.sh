@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Quick script to bootstrap symlinks for dotfiles
 
-CONFS=(gitconfig screenrc shell.aliases tmux.conf vim vimrc Xdefaults Xresources zshrc zshrc.local)
+CONFS=(gitconfig screenrc shell.aliases tmux.conf vimrc Xdefaults Xresources zshrc zshrc.local)
 
 function link_this_kthx() {
     local sourcething="$1"

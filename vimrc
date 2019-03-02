@@ -13,7 +13,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-call pathogen#infect()
 syntax enable
 filetype plugin indent on
 

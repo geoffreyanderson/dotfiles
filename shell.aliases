@@ -14,6 +14,7 @@ alias lla='ls -lah'
 alias sd='sudo du -ch --max-depth=1'
 
 alias mutt='TERM=screen-256color mutt'
+alias neomutt='TERM=screen-256color neomutt'
 
 [[ -d /usr/local/mysql/bin ]] && PATH="/usr/local/mysql/bin:$PATH"
 
@@ -25,6 +26,17 @@ alias json_decode='python -c'\''from simplejson.tool import main; main()'\'''
 
 # Convert multi-line output into pipe-delimited single line
 alias oneline='sed -e :0 -e N -e "s/\n/|/" -e b0'
+
+# AWK simplifiers for parsing
+alias ONE="awk '{ print \$1 }'"
+alias TWO="awk '{ print \$2 }'"
+alias THREE="awk '{ print \$3 }'"
+alias FOUR="awk '{ print \$4 }'"
+alias FIVE="awk '{ print \$5 }'"
+alias SIX="awk '{ print \$6 }'"
+alias SEVEN="awk '{ print \$7 }'"
+alias EIGHT="awk '{ print \$8 }'"
+alias NINE="awk '{ print \$9 }'"
 
 # Override default ttytter params
 alias ttytter='ttytter -readline -ssl -dostream -urlopen "lynx -dump %U | less" -vcheck'

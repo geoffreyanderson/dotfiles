@@ -253,4 +253,23 @@ if [[ -x "$(which direnv)" ]]
 then
     eval "$(direnv hook zsh)"
 fi
+
+# RBenv check and bootstrap
+if [[ -x "$(which rbenv)" ]]
+then
+   eval "$(rbenv init -)"
+fi
+
+# Pipx path
+export PATH="$PATH:${HOME}/.local/bin"
+
+source /Users/ganderson/google-cloud-sdk/completion.zsh.inc
+source /Users/ganderson/google-cloud-sdk/path.zsh.inc
+
+# Preserve ^U behavior that bash has
+bindkey \^U backward-kill-line
+
+# Brew python path
+export PATH=/opt/homebrew/opt/python@3.10/libexec/bin:$PATH
+
 ## END OF FILE #################################################################

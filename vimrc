@@ -180,3 +180,6 @@ elseif getline(1) =~? '\<drawing\>'
     setfiletype drawing
 endif
 filetype plugin indent on    " required
+" jsonnet format options. The defaults have changed and the tool is much more
+" opiniated.
+let g:jsonnet_fmt_options = '--in-place --indent 4 --string-style d'

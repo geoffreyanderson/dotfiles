@@ -55,10 +55,48 @@ urldecode() {
 
 # Other completions ------
 # Kubectl
-if [[ -x "$(which kubectl)" ]]
+if [[ -x "$(which kubectl 2>/dev/null)" ]]
 then
   if kubectl completion "$myshell" > /dev/null
   then
     source <(kubectl completion "$myshell")
   fi
+fi
+
+# RBenv check and bootstrap
+if [[ -x "$(which rbenv 2>/dev/null)" ]]
+then
+  eval "$(rbenv init -)"
+fi
+
+# Box Vault setup
+vault_vars_print() {
+    echo "Current vault vars settings:"
+    echo "VAULT_ADDR=${VAULT_ADDR}"
+    echo "DC=${DC}"
+    echo "ENVIRONMENT=${ENVIRONMENT}"
+}
+vault_vars_unset() {
+    unset VAULT_ADDR
+    unset DC
+    unset ENVIRONMENT
+}
+
+# GPG setup
+export GPG_TTY=$(tty)
+gpg-agent --daemon --enable-ssh-support
+
+# Redhat things
+alias redhat_crons='sudo bash -c '\''for f in /var/spool/cron/*; do while read -r line; do echo "${f}: ${line}"; done < "$f"; done'\'
+
+# Bring in any sensitive envvar strings
+if [[ -f ~/.sensitive.strings ]]
+then
+    source ~/.sensitive.strings
+fi
+
+# Point docker client to colima socket for macbook only
+if [[ "$(hostname)" =~ '^mbp' ]]
+then
+    export DOCKER_HOST="unix://$HOME/.colima/docker.sock"
 fi

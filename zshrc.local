@@ -249,13 +249,13 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 
 # Setup direnv evaluation
-if [[ -x "$(which direnv)" ]]
+if [[ -x "$(which direnv 2>/dev/null)" ]]
 then
     eval "$(direnv hook zsh)"
 fi
 
 # RBenv check and bootstrap
-if [[ -x "$(which rbenv)" ]]
+if [[ -x "$(which rbenv 2>/dev/null)" ]]
 then
    eval "$(rbenv init -)"
 fi
@@ -263,13 +263,21 @@ fi
 # Pipx path
 export PATH="$PATH:${HOME}/.local/bin"
 
-source /Users/ganderson/google-cloud-sdk/completion.zsh.inc
-source /Users/ganderson/google-cloud-sdk/path.zsh.inc
+for f in ~/google-cloud-sdk/completion.zsh.inc ~/google-cloud-sdk/path.zsh.inc
+do
+  if [[ -f "$f" ]]
+  then
+    source "$f"
+  fi
+done
 
 # Preserve ^U behavior that bash has
 bindkey \^U backward-kill-line
 
 # Brew python path
-export PATH=/opt/homebrew/opt/python@3.10/libexec/bin:$PATH
+if [[ -d /opt/homebrew/opt/python@3.10/libexec/bin ]]
+then
+    export PATH=/opt/homebrew/opt/python@3.10/libexec/bin:$PATH
+fi
 
 ## END OF FILE #################################################################
